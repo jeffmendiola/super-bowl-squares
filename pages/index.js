@@ -1,4 +1,7 @@
 import Head from "next/head";
+
+import { useEffect, useState } from 'react';
+
 // import styles from "../styles/Home.module.css";
 import { Box, Container, Divider, Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -64,8 +67,16 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Home({ squareConfig }) {
+export default function Home() {
   const classes = useStyles();
+
+  const [squareConfig, setSquareConfig] = useState({})
+  useEffect(() => {
+    fetch('/api/square')
+      .then((res) => res.json())
+      .then((squareConfig) => setSquareConfig(squareConfig))
+  }, []);
+
   console.log(squareConfig)
   return (
     <>
