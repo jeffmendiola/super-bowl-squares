@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 // import styles from "../styles/Home.module.css";
 import { Box, Container, Divider, Paper, Typography } from "@material-ui/core";
@@ -56,8 +56,16 @@ const useStyles = makeStyles({
     left: 24,
   },
   square: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: 10,
     height: 80,
     width: 80,
+  },
+  squareText: {
+    textAlign: "center",
   },
   title: {
     fontSize: 56,
@@ -70,14 +78,25 @@ const useStyles = makeStyles({
 export default function Home() {
   const classes = useStyles();
 
-  const [squareConfig, setSquareConfig] = useState({})
+  const [squareConfig, setSquareConfig] = useState({});
   useEffect(() => {
-    fetch('/api/square')
+    fetch("/api/square")
       .then((res) => res.json())
-      .then((squareConfig) => setSquareConfig(squareConfig))
+      .then((squareConfig) => setSquareConfig(squareConfig));
   }, []);
 
-  console.log(squareConfig)
+  const {
+    cells = [],
+    colDigits = ["", "", "", "", "", "", "", "", "", ""],
+    match: { awayScore, homeScore } = {},
+    rowDigits = ["", "", "", "", "", "", "", "", "", ""],
+  } = squareConfig;
+
+  const columnDigit = homeScore % 10;
+  const rowDigit = awayScore % 10;
+
+  console.log(squareConfig);
+
   return (
     <>
       <Head>
@@ -106,76 +125,16 @@ export default function Home() {
               m={1}
               bgcolor="background.paper"
             >
-              <Paper
-                className={classes.columnHeaderSquares}
-                variant="outlined"
-                square
-              >
-                5
-              </Paper>
-              <Paper
-                className={classes.columnHeaderSquares}
-                variant="outlined"
-                square
-              >
-                7
-              </Paper>
-              <Paper
-                className={classes.columnHeaderSquares}
-                variant="outlined"
-                square
-              >
-                4
-              </Paper>
-              <Paper
-                className={classes.columnHeaderSquares}
-                variant="outlined"
-                square
-              >
-                2
-              </Paper>
-              <Paper
-                className={classes.columnHeaderSquares}
-                variant="outlined"
-                square
-              >
-                0
-              </Paper>
-              <Paper
-                className={classes.columnHeaderSquares}
-                variant="outlined"
-                square
-              >
-                1
-              </Paper>
-              <Paper
-                className={classes.columnHeaderSquares}
-                variant="outlined"
-                square
-              >
-                6
-              </Paper>
-              <Paper
-                className={classes.columnHeaderSquares}
-                variant="outlined"
-                square
-              >
-                8
-              </Paper>
-              <Paper
-                className={classes.columnHeaderSquares}
-                variant="outlined"
-                square
-              >
-                9
-              </Paper>
-              <Paper
-                className={classes.columnHeaderSquares}
-                variant="outlined"
-                square
-              >
-                3
-              </Paper>
+              {colDigits.map((digit, index) => (
+                <Paper
+                  className={classes.columnHeaderSquares}
+                  key={index}
+                  variant="outlined"
+                  square
+                >
+                  {digit}
+                </Paper>
+              ))}
             </Box>
             <Box
               className={classes.rows}
@@ -186,76 +145,16 @@ export default function Home() {
               m={1}
               bgcolor="background.paper"
             >
-              <Paper
-                className={classes.rowHeaderSquares}
-                variant="outlined"
-                square
-              >
-                0
-              </Paper>
-              <Paper
-                className={classes.rowHeaderSquares}
-                variant="outlined"
-                square
-              >
-                6
-              </Paper>
-              <Paper
-                className={classes.rowHeaderSquares}
-                variant="outlined"
-                square
-              >
-                3
-              </Paper>
-              <Paper
-                className={classes.rowHeaderSquares}
-                variant="outlined"
-                square
-              >
-                2
-              </Paper>
-              <Paper
-                className={classes.rowHeaderSquares}
-                variant="outlined"
-                square
-              >
-                4
-              </Paper>
-              <Paper
-                className={classes.rowHeaderSquares}
-                variant="outlined"
-                square
-              >
-                1
-              </Paper>
-              <Paper
-                className={classes.rowHeaderSquares}
-                variant="outlined"
-                square
-              >
-                7
-              </Paper>
-              <Paper
-                className={classes.rowHeaderSquares}
-                variant="outlined"
-                square
-              >
-                8
-              </Paper>
-              <Paper
-                className={classes.rowHeaderSquares}
-                variant="outlined"
-                square
-              >
-                5
-              </Paper>
-              <Paper
-                className={classes.rowHeaderSquares}
-                variant="outlined"
-                square
-              >
-                9
-              </Paper>
+              {rowDigits.map((digit, index) => (
+                <Paper
+                  className={classes.rowHeaderSquares}
+                  key={index}
+                  variant="outlined"
+                  square
+                >
+                  {digit}
+                </Paper>
+              ))}
             </Box>
             <Box
               className={classes.grid}
@@ -266,121 +165,26 @@ export default function Home() {
               m={1}
               bgcolor="background.paper"
             >
-              {/* ========================================================== */}
-              <Paper
-                className={clsx(classes.square, classes.hightlight)}
-                variant="outlined"
-                square
-              />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              {/* ========================================================== */}
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              {/* ========================================================== */}
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              {/* ========================================================== */}
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              {/* ========================================================== */}
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              {/* ========================================================== */}
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              {/* ========================================================== */}
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              {/* ========================================================== */}
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              {/* ========================================================== */}
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              {/* ========================================================== */}
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              <Paper className={classes.square} variant="outlined" square />
-              {/* ========================================================== */}
+              {cells.map((cell, index) => {
+                const shouldHighlight =
+                  columnDigit === colDigits[cell.colPos] &&
+                  rowDigit === rowDigits[cell.rowPos];
+                return (
+                  <Paper
+                    className={classes.square}
+                    key={index}
+                    variant="outlined"
+                    style={{
+                      backgroundColor: shouldHighlight
+                        ? "#fff200"
+                        : "transparent",
+                    }}
+                    square
+                  >
+                    <div className={classes.squareText}>{cell.owner}</div>
+                  </Paper>
+                );
+              })}
             </Box>
           </div>
         </Container>
