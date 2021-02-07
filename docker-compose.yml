@@ -1,0 +1,17 @@
+---
+version: '3.7'
+
+services:
+  db:
+    image: postgres:12.4
+    environment:
+      - POSTGRES_PASSWORD=test
+      - POSTGRES_USER=test
+      - POSTGRES_DB=superbowl
+    ports:
+      - "127.0.0.1:5433:5433"
+    # Run using 5433 to allow localdev to operate grpc server in docker or not without changing config.toml
+    command: -p 5433
+
+volumes:
+  db_data:

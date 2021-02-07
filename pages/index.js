@@ -64,9 +64,9 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Home() {
+export default function Home({ squareConfig }) {
   const classes = useStyles();
-
+  console.log(squareConfig)
   return (
     <>
       <Head>
